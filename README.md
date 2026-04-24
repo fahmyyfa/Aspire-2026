@@ -1,36 +1,9 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+📚 LibrAspire — Platform Perpustakaan Digital ModernLibrAspire adalah aplikasi web perpustakaan digital yang dikembangkan untuk memudahkan pengguna menemukan dan meminjam buku secara interaktif. Proyek ini merupakan hasil migrasi dan pengembangan dari web statis (HTML/JS) ke ekosistem modern React.js dan Next.js.🚀 3 Fitur Baru (Penugasan Modul 5)Sesuai dengan peta jalan pengembangan aplikasi modern, proyek ini kini dilengkapi dengan:Arsitektur Komponen Modular (Props) UI dipecah menjadi bagian-bagian kecil (Navbar, BookCard, Footer) yang mandiri. Kami menggunakan Props untuk mengirim data buku secara spesifik ke setiap kartu tanpa menulis ulang kode.Interaksi Real-time (State Management) Status ketersediaan buku ("Available" vs "Borrowed") kini bersifat dinamis menggunakan State. Tampilan web akan diperbarui secara otomatis seketika saat tombol diklik tanpa perlu memuat ulang halaman (re-render).Navigasi Halaman Dinamis (Routing) Mengimplementasikan File-Based Routing untuk memisahkan halaman Katalog dan halaman Utama. Selain itu, terdapat Dynamic Routes (/books/[id]) yang memungkinkan setiap buku memiliki halaman detailnya sendiri secara otomatis.🛠️ Teknologi yang DigunakanFramework: Next.js 14 (App Router).Library: React.js (Component-Based Architecture).Language: TypeScript (untuk keamanan kode).Styling: Global CSS (identik dengan desain LibrAspire sebelumnya).Rendering: Kombinasi Server Component (untuk kecepatan) dan Client Component (untuk interaksi pengguna).📂 Struktur ProyekPlaintextsrc/
+├── app/              # Routing utama (Home, Catalog, Book Details)
+├── components/       # Komponen modular (Navbar, BookCard, Footer)
+└── data/             # Database lokal (Daftar buku)
+⚙️ Cara Menjalankan di LokalClone repository ini:Bashgit clone https://github.com/username/libraspire.git
+Masuk ke direktori proyek:Bashcd libraspire
+Install semua dependencies:Bashnpm install
+Jalankan aplikasi di mode pengembangan:Bashnpm run dev
+Buka http://localhost:3000 di browser Anda.

@@ -5,7 +5,7 @@ export interface Book {
   category: string;
 }
 
-export const books = [
+export const books: Book[] = [
   {
     id: "1",
     title: "Atomic Habits",
@@ -23,5 +23,17 @@ export const books = [
     title: "Clean Code",
     author: "Robert C. Martin",
     category: "Technology",
+  },
+  {
+    id: "4",
+    title: "The Psychology of Money",
+    author: "Morgan Housel",
+    category: "Finance",
+  },
+  {
+    id: "5",
+    title: "Dune",
+    author: "Frank Herbert",
+    category: "Sci-Fi",
   },
 ];

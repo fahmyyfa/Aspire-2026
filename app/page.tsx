@@ -2,66 +2,78 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import BookCard from "../components/BookCard";
-import CategoryCard from "../components/CategoryCard";
 import StatCard from "../components/StatCard";
 import Footer from "../components/Footer";
+import FilterCategory from "../components/FilterCategory"; // Import komponen baru
 import { books } from "../src/data/books";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
-  const filteredBooks = books.filter((book: any) =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  // Mendapatkan daftar kategori unik secara otomatis dari data books.ts
+  const categories = ["All", ...Array.from(new Set(books.map((b) => b.category)))];
+
+  // Logika Filter Gabungan (Teks + Kategori)
+  const filteredBooks = books.filter((book) => {
+    const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || book.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <>
       <Navbar />
       <main>
-        {/*komponen teks hero section*/}
         <section className="hero" id="home">
           <div className="container hero-content">
             <h1 className="hero-title">Find and Borrow Books Easily</h1>
+            <p className="hero-subtitle">Jelajahi ribuan koleksi buku digital dalam genggaman Anda.</p>
             <div className="search-box">
               <input
                 type="search"
                 className="search-input"
-                placeholder="Search books..."
+                placeholder="Cari judul buku..."
+                value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <button className="btn btn-primary search-btn">Cari</button>
             </div>
           </div>
         </section>
 
-        {/*komponen katgori*/}
-        <section className="categories" id="catalog">
+        <section className="categories" id="catalog" style={{ padding: "60px 0" }}>
           <div className="container">
-            <h2 className="section-title">Browse Categories</h2>
-            <ul className="categories-grid">
-              <CategoryCard icon="💻" name="Technology" />
-              <CategoryCard icon="🔬" name="Science" />
-              <CategoryCard icon="📖" name="Novel" />
-              <CategoryCard icon="💼" name="Business" />
-              <CategoryCard icon="🏛️" name="History" />
-              <CategoryCard icon="🎓" name="Education" />
-            </ul>
-          </div>
-        </section>
+            <h2 className="section-title">Explore Our Collection</h2>
+            
+            {/* Memanggil Komponen Filter */}
+            <FilterCategory 
+              categories={categories} 
+              selectedCategory={selectedCategory} 
+              onSelectCategory={setSelectedCategory} 
+            />
 
-        {/*komponen buku populer*/}
-        <section className="popular-books">
-          <div className="container">
-            <h2 className="section-title">Popular Books</h2>
             <div className="books-grid">
-              {filteredBooks.map((book: any) => (
-                <BookCard key={book.id} {...book} />
-              ))}
+              {filteredBooks.length > 0 ? (
+                filteredBooks.map((book) => (
+                  <BookCard key={book.id} {...book} />
+                ))
+              ) : (
+                <div style={{ textAlign: "center", gridColumn: "1/-1", padding: "40px" }}>
+                   <p>Maaf, buku dengan kriteria tersebut tidak ditemukan.</p>
+                   <button 
+                    className="btn btn-outline" 
+                    onClick={() => {setSearchTerm(""); setSelectedCategory("All");}}
+                    style={{ marginTop: "10px" }}
+                   >
+                     Reset Filter
+                   </button>
+                </div>
+              )}
             </div>
           </div>
         </section>
 
-        {/*komponen statik*/}
-        <section className="statistics">
+        <section className="stats">
           <div className="container">
             <h2 className="section-title">LibrAspire in Numbers</h2>
             <div className="stats-grid">
@@ -69,38 +81,6 @@ export default function Home() {
               <StatCard number="3.200+" label="Member Aktif" />
               <StatCard number="8.750+" label="Peminjaman / Bulan" />
             </div>
-          </div>
-        </section>
-
-        {/*komponen kontak*/}
-        <section className="contact" id="contact">
-          <div className="container">
-            <h2 className="section-title">Contact Us</h2>
-            <form className="contact-form">
-              <div className="form-group">
-                <label>Nama</label>
-                <input
-                  type="text"
-                  placeholder="Masukkan nama lengkap"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>Email</label>
-                <input type="email" placeholder="contoh@email.com" required />
-              </div>
-              <div className="form-group">
-                <label>Pesan</label>
-                <textarea
-                  rows={5}
-                  placeholder="Tulis pesan Anda..."
-                  required
-                ></textarea>
-              </div>
-              <button type="submit" className="btn btn-primary btn-submit">
-                Kirim Pesan
-              </button>
-            </form>
           </div>
         </section>
       </main>

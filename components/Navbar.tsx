@@ -32,6 +32,11 @@ export default function Navbar() {
                 Contact
               </Link>
             </li>
+            <li>
+              <Link href="/reading-list" className="nav-link">
+                Reading List
+              </Link>
+            </li>
           </ul>
         </nav>
         <div className="auth-buttons">
